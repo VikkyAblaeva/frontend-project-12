@@ -1,0 +1,27 @@
+{
+  "name": "frontend-project-12",
+  "version": "1.0.0",
+  "description": "chat Slack",
+  "main": "index.js",
+  "type": "module",
+  "proxy": "http://localhost:5001",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd frontend && npm ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VikkyAblaeva/frontend-project-12.git"
+  },
+  "author": "VikkyAblaeva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VikkyAblaeva/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/VikkyAblaeva/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^1.1.6"
+  }
+}
