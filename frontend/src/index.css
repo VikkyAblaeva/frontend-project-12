@@ -23,7 +23,6 @@ body {
   background-size: 100% 100%;
   min-width: 100%;
   min-height: 100%;
-  position: relative;
   display: flex;	
   justify-content: center;
 }
@@ -46,8 +45,22 @@ input {
 }
 
 .error {
+  flex: none;
   text-align: center;
   font-size: 18px;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.one {
+  position: absolute;
+  top: 18%;
+}
+
+.two {
+  position: absolute;
+  bottom: 37%;
 }
 
 .container {
@@ -58,6 +71,7 @@ input {
   justify-content: center;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 50% 20% / 10% 40%;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
 }
 
 h1 {
@@ -65,16 +79,16 @@ h1 {
 }
 
 form {
+  position: relative;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 300px;
 }
 
 #root {
   min-width: 70%;
   min-height: 100%;
-  position: relative;
   display: flex;	
   justify-content: center;
   align-items: center;

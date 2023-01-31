@@ -31,14 +31,14 @@ function App() {
      >
        {({ errors, touched }) => (
          <Form>
-           <Field 
+           <Field
            name="firstName"
-           label="Your Name"
+           label="Name"
            type="text"
            placeholder="Input your name"
            />
            {errors.firstName && touched.firstName ? (
-             <div className='error'>{errors.firstName}</div>
+             <div className='error one'>{errors.firstName}</div>
            ) : null}
            
            <Field 
@@ -48,7 +48,7 @@ function App() {
             placeholder="Input password"
             />
             {errors.password && touched.password ? (
-             <div className='error'>{errors.password}</div>
+             <div className='error two'>{errors.password}</div>
            ) : null}
            <button className="butt" type="submit">Submit</button>
          </Form>
