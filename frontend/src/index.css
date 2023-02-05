@@ -51,21 +51,29 @@ input {
 	left: 0;
 	right: 0;
 	margin: auto;
+  color: darkred;
+  position: absolute;
 }
 
 .one {
-  position: absolute;
-  top: 18%;
+  top: 19%;
 }
 
 .two {
-  position: absolute;
+  bottom: 51%;
+}
+
+.three {
+  bottom: 28%;
+}
+
+.four {
   bottom: 37%;
 }
 
 .container {
   width: 700px;
-  height: 700px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -74,16 +82,16 @@ input {
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
 }
 
-h1 {
+h1, h2, h3 {
   text-align: center;
 }
 
 form {
   position: relative;
-  min-height: 300px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 #root {

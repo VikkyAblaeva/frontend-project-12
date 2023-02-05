@@ -1,61 +1,20 @@
-import './App.css';
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
+import { Routes, Route } from 'react-router-dom';
+import Signup from './routes/Signup.jsx';
+import Login from './routes/Login.jsx';
+import Root from './routes/root.jsx';
+import ErrorPage from "./routes/error-page.jsx";
+import './App.css';
 
-const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('This field cannot be empty'),
-      password: Yup.string()
-      .min(2, 'Too Short!')
-      .max(50, 'Too Long!')
-      .required('This field cannot be empty'),
-  });
-
-function App() {
+const App = () => {
   return (
-    <div className='container'>
-     <h1>Signup</h1>
-     <Formik
-       initialValues={{
-         firstName: '',
-         password: '',
-       }}
-       validationSchema={SignupSchema}
-       onSubmit={values => {
-         // same shape as initial values
-         console.log(values);
-       }}
-     >
-       {({ errors, touched }) => (
-         <Form>
-           <Field
-           name="firstName"
-           label="Name"
-           type="text"
-           placeholder="Input your name"
-           />
-           {errors.firstName && touched.firstName ? (
-             <div className='error one'>{errors.firstName}</div>
-           ) : null}
-           
-           <Field 
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="Input password"
-            />
-            {errors.password && touched.password ? (
-             <div className='error two'>{errors.password}</div>
-           ) : null}
-           <button className="butt" type="submit">Submit</button>
-         </Form>
-       )}
-     </Formik>
-   </div>
+    <Routes>
+      <Route path="/signup" element={<Signup/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/" element={<Root/>}/>
+      <Route path='*' element={<ErrorPage/>}/>
+    </Routes>
   );
-}
+};
 
 export default App;

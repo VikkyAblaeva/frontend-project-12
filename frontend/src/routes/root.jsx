@@ -1,9 +1,11 @@
-export default function Root() {
+const Root = () => {
     return (
       <>
         <div>
-          <h1>React Router Contacts</h1>
+          <h1>Chat Here</h1>
         </div>
       </>
     );
-  }
+  };
+
+export default Root;
