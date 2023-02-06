@@ -10,6 +10,10 @@ const LoginSchema = Yup.object().shape({
     //.required('Неверные имя пользователя или пароль'),
   });
 
+const handleForm = (values) => {
+  console.log(values);
+}
+
 const Login = () => {
   return (
     <div className='container'>
@@ -21,8 +25,8 @@ const Login = () => {
        }}
        validationSchema={LoginSchema}
        onSubmit={values => {
-         // same shape as initial values
-         console.log(values);
+         handleForm(values);
+         //console.log(values);
        }}
      >
        {({ errors, touched }) => (

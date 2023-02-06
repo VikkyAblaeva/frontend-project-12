@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import React from 'react';
+import axios from 'axios';
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -14,6 +15,19 @@ const SignupSchema = Yup.object().shape({
     confirmPassword: Yup.string().required('Пароли должны совпадать').oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
   });
 
+const handleSubmit = async (values) => {
+  console.log(values);
+  const responce = await axios.post('/api/v1/signup', values);
+  //console.log(responce);
+  const user = {
+    login: values.firstName,
+    password: values.password,
+    token: responce.data.token,
+  };
+  localStorage.setItem('token', String(responce.data.token));
+  //console.log(user);
+}
+
 const Signup = () => {
   return (
     <div className='container'>
@@ -26,11 +40,11 @@ const Signup = () => {
        }}
        validationSchema={SignupSchema}
        onSubmit={values => {
-         // same shape as initial values
-         console.log(values);
+         handleSubmit(values);
+         //console.log(values);
        }}
      >
-       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isValid }) => (
+       {({ values, errors, touched, handleChange, handleBlur, isValid }) => (
          <Form>
            <Field
            name="firstName"
