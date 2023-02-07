@@ -7,8 +7,9 @@ const Root = () => {
   }
     return (
       <>
-        <div>
-          <h1>Chat Here</h1>
+        <div class="container-chat">
+          <div class="left"></div>
+          <div class="rigth"></div>
         </div>
       </>
     );

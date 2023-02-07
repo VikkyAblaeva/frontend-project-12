@@ -19,11 +19,11 @@ const handleSubmit = async (values) => {
   console.log(values);
   const responce = await axios.post('/api/v1/signup', values);
   //console.log(responce);
-  const user = {
-    login: values.firstName,
-    password: values.password,
-    token: responce.data.token,
-  };
+  //const user = {
+    //login: values.firstName,
+    //password: values.password,
+    //token: responce.data.token,
+  //};
   localStorage.setItem('token', String(responce.data.token));
   //console.log(user);
 }
