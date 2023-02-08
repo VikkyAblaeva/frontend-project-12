@@ -30,18 +30,20 @@ const Login = () => {
        }}
      >
        {({ errors, touched }) => (
-         <Form>
+         <Form className='form'>
            <Field
            name="firstName"
            label="Name"
            type="text"
            placeholder="Ваш ник"
+           className="input"
            />           
            <Field 
             label="Password"
             type="password"
             name="password"
             placeholder="Пароль"
+            className="input"
             />
             {errors.password && touched.password ? (
              <div className='error four'>{errors.password}</div>

@@ -45,12 +45,13 @@ const Signup = () => {
        }}
      >
        {({ values, errors, touched, handleChange, handleBlur, isValid }) => (
-         <Form>
+         <Form className='form'>
            <Field
            name="firstName"
            label="Name"
            type="text"
            placeholder="Имя пользователя"
+           className="input"
            />
            {errors.firstName && touched.firstName ? (
              <div className='error one'>{errors.firstName}</div>
@@ -60,6 +61,7 @@ const Signup = () => {
             type="password"
             name="password"
             placeholder="Пароль"
+            className="input"
             />
             {errors.password && touched.password ? (
              <div className='error two'>{errors.password}</div>
@@ -69,6 +71,7 @@ const Signup = () => {
             type="password"
             name="confirmPassword"
             placeholder="Подтвердите пароль"
+            className="input"
             />
             {errors.confirmPassword && touched.confirmPassword ? (
              <div className='error three'>{errors.confirmPassword}</div>
