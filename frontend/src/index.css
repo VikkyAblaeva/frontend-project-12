@@ -65,7 +65,8 @@ code {
 }
 
 .header {
-  position: fixed;
+  position: absolute;
+  top: 0;
   width: 100%;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   background: rgba(255, 255, 255, 0.7);
@@ -78,7 +79,7 @@ code {
   border-radius: 10px;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   border: 0;
-  height: 30px;
+  height: 40px;
   font-size: 24px;
   margin-left: auto;
   margin-right: auto;
@@ -111,7 +112,7 @@ code {
   bottom: 37%;
 }
 
-.container {
+.container-form {
   width: 700px;
   height: 600px;
   display: flex;
@@ -180,10 +181,10 @@ h1, h2, h3 {
   box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 1px 2px rgba(0,0,0,.2), inset 0 1px 2px rgba(255,255,255,.7);
 }
 
-.butt, .buttAdd:hover {
+.butt:hover, .buttAdd:hover {
   background: #fff;
 }
-.butt, .buttAdd:active {
+.butt:active, .buttAdd:active {
   background: #d0d3d6;
   background-image: linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,0));
   box-shadow: inset 0 0 2px rgba(0,0,0,.2), inset 0 2px 5px rgba(0,0,0,.2), 0 1px rgba(255,255,255,.2);

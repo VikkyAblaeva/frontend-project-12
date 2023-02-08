@@ -10,6 +10,9 @@ const Root = () => {
   }
     return (
       <>
+      <div className="header">
+        <h1>Welcome to Chat!</h1>
+      </div>
         <div className="container-chat">
           <div className="left">
             <div className="channels">

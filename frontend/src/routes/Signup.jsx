@@ -30,7 +30,11 @@ const handleSubmit = async (values) => {
 
 const Signup = () => {
   return (
-    <div className='container'>
+    <>
+    <div className="header">
+      <h1>Welcome to Chat!</h1>
+    </div>
+    <div className='container-form'>
      <h1>Регистрация</h1>
      <Formik
        initialValues={{
@@ -81,6 +85,7 @@ const Signup = () => {
        )}
      </Formik>
    </div>
+   </>
   );
 };
 

@@ -16,7 +16,11 @@ const handleForm = (values) => {
 
 const Login = () => {
   return (
-    <div className='container'>
+    <>
+    <div className="header">
+      <h1>Welcome to Chat!</h1>
+    </div>
+    <div className='container-form'>
      <h1>Войти</h1>
      <Formik
        initialValues={{
@@ -55,6 +59,7 @@ const Login = () => {
      <h2>Нет аккаунта?</h2>
      <Link to="/signup"><h3>Регистрация</h3></Link>
    </div>
+   </>
   );
 };
 
