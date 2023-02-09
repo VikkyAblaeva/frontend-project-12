@@ -2,6 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -15,20 +16,24 @@ const SignupSchema = Yup.object().shape({
     confirmPassword: Yup.string().required('Пароли должны совпадать').oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
   });
 
-const handleSubmit = async (values) => {
-  console.log(values);
-  const responce = await axios.post('/api/v1/signup', values);
-  //console.log(responce);
-  //const user = {
-    //login: values.firstName,
-    //password: values.password,
-    //token: responce.data.token,
-  //};
-  localStorage.setItem('token', String(responce.data.token));
-  //console.log(user);
-}
-
 const Signup = () => {
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (values) => {
+    console.log(values);
+    const responce = await axios.post('/api/v1/signup', values);
+    //console.log(responce);
+    //const user = {
+      //login: values.firstName,
+      //password: values.password,
+      //token: responce.data.token,
+    //};
+    
+    localStorage.setItem('token', String(responce.data.token));
+    return navigate("/");
+    //console.log(user);
+  };
+
   return (
     <>
     <div className="header">

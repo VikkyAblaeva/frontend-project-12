@@ -1,12 +1,16 @@
 import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Root = () => {
+  const navigate = useNavigate();
   const handleInput = (e) => {
     
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
   const data = localStorage.getItem('token');
   if (!data) {
     return <Navigate to={"/login"} />;
@@ -15,7 +19,16 @@ const Root = () => {
       <>
       <div className="header d-flex justify-content-around">
         <h1>Welcome to Chat!</h1>
-        <button type="button" className='btn btn-primary w-7'>Выйти</button>
+        <button 
+        type="button"
+        className='btn btn-primary w-7'
+        onClick={
+          () => {
+            localStorage.removeItem('token');
+            return navigate("/login");
+          }
+        }
+        >Выйти</button>
       </div>
         <div className="container-chat">
           <div className="left">
