@@ -2,7 +2,10 @@ import { Navigate } from 'react-router-dom';
 
 const Root = () => {
   const handleInput = (e) => {
-
+    
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
   const data = localStorage.getItem('token');
   if (!data) {
@@ -10,8 +13,9 @@ const Root = () => {
   }
     return (
       <>
-      <div className="header">
+      <div className="header d-flex justify-content-around">
         <h1>Welcome to Chat!</h1>
+        <button type="button" className='btn btn-primary w-7'>Выйти</button>
       </div>
         <div className="container-chat">
           <div className="left">
@@ -55,7 +59,9 @@ const Root = () => {
                   arial-label="Новое сообщение"
                   placeholder='Введите сообщение...'
                   className='border-0 p-0 ps-2 form-control'></input>
-                  <button type="submit" className='btn btn-primary'>
+                  <button type="submit"
+                  onSubmit={(e) => handleSubmit(e)}
+                  className='btn btn-primary'>
                   &gt;&gt;&gt;
                   </button>
                 </div>
