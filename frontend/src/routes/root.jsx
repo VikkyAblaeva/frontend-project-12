@@ -8,13 +8,14 @@ const Root = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log('handlesubmit');
     e.preventDefault();
   };
 
   const data = localStorage.getItem('token');
-  if (!data) {
-    return <Navigate to={"/login"} />;
-  }
+  //if (!data) {
+    //return <Navigate to={"/login"} />;
+  //}
     return (
       <>
       <div className="header d-flex justify-content-around">
@@ -65,15 +66,18 @@ const Root = () => {
             <div id='messages-box' className='chat-messages overflow-auto px-5 '>
             </div>
             <div className='mt-auto px-5 py-3'>
-              <form noValidate className='py-1 border rounded-2'>
+              <form noValidate className='py-1 border rounded-2'
+              onSubmit={handleSubmit}
+              >
                 <div className='input-group has-validation'>
                   <input name='body'
+                  autoFocus required
                   onChange={(e) => handleInput(e)}
                   arial-label="Новое сообщение"
                   placeholder='Введите сообщение...'
                   className='border-0 p-0 ps-2 form-control'></input>
                   <button type="submit"
-                  onSubmit={(e) => handleSubmit(e)}
+                  
                   className='btn btn-primary'>
                   &gt;&gt;&gt;
                   </button>

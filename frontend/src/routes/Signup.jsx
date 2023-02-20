@@ -1,8 +1,8 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -17,23 +17,22 @@ const SignupSchema = Yup.object().shape({
   });
 
 const Signup = () => {
+  const [user, setUser] = useState([]);
   const navigate = useNavigate();
-  
   const handleSubmit = async (values) => {
-    console.log(values);
     const responce = await axios.post('/api/v1/signup', values);
-    //console.log(responce);
-    //const user = {
-      //login: values.firstName,
-      //password: values.password,
-      //token: responce.data.token,
-    //};
-    
+    const user = {
+      login: values.firstName,
+      password: values.password,
+      token: responce.data.token,
+    };
     localStorage.setItem('token', String(responce.data.token));
     return navigate("/");
     //console.log(user);
   };
-
+  useEffect(() => {
+    document.getElementById("username").focus();
+  }, []);
   return (
     <>
     <div className="header">
@@ -56,6 +55,7 @@ const Signup = () => {
        {({ values, errors, touched, handleChange, handleBlur, isValid }) => (
          <Form className='form'>
            <Field
+           id="username"
            name="firstName"
            label="Name"
            type="text"
@@ -65,7 +65,8 @@ const Signup = () => {
            {errors.firstName && touched.firstName ? (
              <div className='error one'>{errors.firstName}</div>
            ) : null}
-           <Field 
+           <Field
+            id="password"
             label="Password"
             type="password"
             name="password"
@@ -77,6 +78,7 @@ const Signup = () => {
            ) : null}
            <Field 
             label="confirmPassword"
+            id="confirmPassword"
             type="password"
             name="confirmPassword"
             placeholder="Подтвердите пароль"
