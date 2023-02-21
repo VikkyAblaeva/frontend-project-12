@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
+    username: Yup.string()
       .min(3, 'От 3 до 20 символов')
       .max(50, 'Не более 50 символов')
       .required('Обязательное поле'),
@@ -17,17 +17,25 @@ const SignupSchema = Yup.object().shape({
   });
 
 const Signup = () => {
-  const [user, setUser] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  const handleSubmit = async (values) => {
-    const responce = await axios.post('/api/v1/signup', values);
-    const user = {
-      login: values.firstName,
-      password: values.password,
-      token: responce.data.token,
+  const handleSubmit = async () => {
+    try {
+      const responce = await axios.post('/api/v1/signup', { username, password });
+      const user = {
+        username: username,
+        token: responce.data.token,
     };
-    localStorage.setItem('user', String(responce.data.token));
+    localStorage.setItem('user', JSON.stringify(user));
+    setError('');
     return navigate("/");
+    } catch (err) {
+      if (err.response.status === 409) {
+        setError('Такой пользователь уже существует!');
+      }
+    }
   };
   useEffect(() => {
     document.getElementById("username").focus();
@@ -41,14 +49,12 @@ const Signup = () => {
      <h1>Регистрация</h1>
      <Formik
        initialValues={{
-         firstName: '',
+         username: '',
          password: '',
-         confirmPassword: ''
+         confirmPassword: '',
        }}
        validationSchema={SignupSchema}
-       onSubmit={values => {
-         handleSubmit(values);
-       }}
+       onSubmit={handleSubmit}
      >
        {({ values, errors, touched, handleChange, handleBlur, isValid }) => (
          <Form className='form'>
@@ -58,10 +64,12 @@ const Signup = () => {
            label="Name"
            type="text"
            placeholder="Имя пользователя"
-           className="input"
+           className={error === '' ? 'input' : 'inputErr'}
+           onChange={(e) => setUsername(e.target.value)}
+           value={username}
            />
-           {errors.firstName && touched.firstName ? (
-             <div className='error one'>{errors.firstName}</div>
+           {errors.username && touched.username ? (
+             <div className='error one'>{errors.username}</div>
            ) : null}
            <Field
             id="password"
@@ -69,7 +77,9 @@ const Signup = () => {
             type="password"
             name="password"
             placeholder="Пароль"
-            className="input"
+            className={error === '' ? 'input' : 'inputErr'}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             />
             {errors.password && touched.password ? (
              <div className='error two'>{errors.password}</div>
@@ -80,11 +90,14 @@ const Signup = () => {
             type="password"
             name="confirmPassword"
             placeholder="Подтвердите пароль"
-            className="input"
+            className={error === '' ? 'input' : 'inputErr'}
             />
             {errors.confirmPassword && touched.confirmPassword ? (
              <div className='error three'>{errors.confirmPassword}</div>
            ) : null}
+           {error !== '' ? (
+            <div className='error three'>{error}</div>
+            ) : null}
            <button className="butt" type="submit">Submit</button>
          </Form>
        )}
