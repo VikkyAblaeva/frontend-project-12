@@ -8,14 +8,13 @@ const Root = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log('handlesubmit');
     e.preventDefault();
   };
 
-  const data = localStorage.getItem('token');
-  //if (!data) {
-    //return <Navigate to={"/login"} />;
-  //}
+  const data = localStorage.getItem('user');
+  if (!data) {
+    return <Navigate to={"/login"} />;
+  }
     return (
       <>
       <div className="header d-flex justify-content-around">
@@ -25,7 +24,7 @@ const Root = () => {
         className='btn btn-primary w-7'
         onClick={
           () => {
-            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             return navigate("/login");
           }
         }
@@ -77,7 +76,6 @@ const Root = () => {
                   placeholder='Введите сообщение...'
                   className='border-0 p-0 ps-2 form-control'></input>
                   <button type="submit"
-                  
                   className='btn btn-primary'>
                   &gt;&gt;&gt;
                   </button>

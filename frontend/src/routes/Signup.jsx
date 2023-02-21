@@ -2,7 +2,7 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -17,7 +17,7 @@ const SignupSchema = Yup.object().shape({
   });
 
 const Signup = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState('');
   const navigate = useNavigate();
   const handleSubmit = async (values) => {
     const responce = await axios.post('/api/v1/signup', values);
@@ -26,9 +26,8 @@ const Signup = () => {
       password: values.password,
       token: responce.data.token,
     };
-    localStorage.setItem('token', String(responce.data.token));
+    localStorage.setItem('user', String(responce.data.token));
     return navigate("/");
-    //console.log(user);
   };
   useEffect(() => {
     document.getElementById("username").focus();
@@ -49,7 +48,6 @@ const Signup = () => {
        validationSchema={SignupSchema}
        onSubmit={values => {
          handleSubmit(values);
-         //console.log(values);
        }}
      >
        {({ values, errors, touched, handleChange, handleBlur, isValid }) => (

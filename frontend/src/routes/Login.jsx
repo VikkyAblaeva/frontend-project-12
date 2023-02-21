@@ -1,33 +1,32 @@
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
-const LoginSchema = Yup.object().shape({
-    //firstName: Yup.string()
-    //.required('This field cannot be empty'),
-    //password: Yup.string()
-    //.required('Неверные имя пользователя или пароль'),
-  });
+import axios from 'axios';
 
 const Login = () => {
-  const userRef = useRef();
-  const [user, setUser] = useState('');
-  const [pwd, setPwd] = useState('');
-  const [success, setSuccess] = useState('');;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     document.getElementById("username").focus();
   }, []);
 
-  const handleSubmit = (values) => {
-    //setUser('');
-    //setPwd('');
-    setSuccess(true);
-    console.log(user);
-    console.log(pwd);
-    return navigate("/");
+  const handleSubmit = async () => {
+    try {
+      const { data } = await axios.post('/api/v1/login', { username, password });
+      if (data.token) {
+        const user = { token: data.token, username: data.username };
+        localStorage.setItem('user', JSON.stringify(user));
+        setError('');
+        return navigate("/");
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        setError('Неверные имя пользователя или пароль');
+      }
+    }
   };
 
   return (
@@ -39,13 +38,12 @@ const Login = () => {
      <h1>Войти</h1>
      <Formik
        initialValues={{
-         firstName: '',
+         username: '',
          password: '',
        }}
-       validationSchema={LoginSchema}
-       onSubmit={(values) => handleSubmit(values)}
+       onSubmit={handleSubmit}
      >
-       {({ errors, touched }) => (
+       {() => (
          <Form className='form'>
            <Field
            id="username"
@@ -53,27 +51,26 @@ const Login = () => {
            label="Name"
            type="text"
            placeholder="Ваш ник"
-           className="input"
+           className={error === '' ? 'input' : 'inputErr'}
            autoComplete="off"
            required="required"
-           onChange={(e) => setUser(e.target.value)}
-           value={user}
+           onChange={(e) => setUsername(e.target.value)}
+           value={username}
            />           
            <Field 
             label="Password"
             type="password"
             name="password"
             placeholder="Пароль"
-            className="input"
+            className={error === '' ? 'input' : 'inputErr'}
             autoComplete="off"
             required="required"
-            onChange={(e) => setPwd(e.target.value)}
-            value={pwd}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             />
-            {errors.password && console.log(errors.password)}
-            {errors.password && touched.password ? (
-             <div className='error four'>{errors.password}</div>
-           ) : null}
+            {error !== '' ? (
+            <div className='error four'>{error}</div>
+            ) : null}
            <button className="butt" type="submit">Submit</button>
          </Form>
        )}
